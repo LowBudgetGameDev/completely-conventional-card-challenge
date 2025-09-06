@@ -20,11 +20,6 @@ public class Deck
         }
 
         Shuffle();
-
-        foreach (Card card in cardList)
-        {
-            Debug.Log(card.ToString());
-        }
     }
 
     // This uses the Fisher Yates Shuffle Algorithm to suffle the deck of cards
@@ -41,5 +36,10 @@ public class Deck
             cardList[k] = cardList[n];
             cardList[n] = value;
         }
+    }
+
+    public List<Card> GetCardList()
+    {
+        return cardList;
     }
 }
