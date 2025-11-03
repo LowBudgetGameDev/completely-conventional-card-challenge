@@ -1,17 +1,26 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CardUI : MonoBehaviour
 {
-    [SerializeField] private RectTransform deckPoint;
+    [SerializeField] private List<RectTransform> cardPoints;
     [SerializeField] private RectTransform cardPrefab;
+
+    private List<RectTransform> cardList;
 
     private void Start()
     {
-        foreach (Card card in CardManager.Instance.GetCards())
-        {
-            RectTransform cardUI = Instantiate(cardPrefab, deckPoint.position, Quaternion.identity, deckPoint);
+        cardList = new List<RectTransform>();
 
-            cardUI.GetComponent<CardValue>().SetValue(card);
-        }
+        FunctionTimer.Create(() =>
+        {
+            for (int i = 0; i < CardManager.Instance.GetAvailableCards().Count; i++)
+            {
+                RectTransform cardTransform = Instantiate(cardPrefab, cardPoints[i].position, Quaternion.Euler(0, 180, 0), cardPoints[i]);
+
+                cardTransform.GetComponent<CardValue>().SetValue(CardManager.Instance.GetAvailableCards()[i]);
+                cardList.Add(cardTransform);
+            }
+        }, 3f);
     }
 }

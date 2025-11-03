@@ -42,4 +42,19 @@ public class Deck
     {
         return cardList;
     }
+
+    // Gives list of top cards and removes them from the deck
+    public List<Card> TakeTopCards(int amount)
+    {
+        List<Card> cards = new List<Card>();
+
+        for (int i = 0; i < amount; i++)
+        {
+            cards.Add(cardList[i]);
+        }
+
+        cardList.RemoveRange(0, amount);
+
+        return cards;
+    }
 }
