@@ -8,6 +8,9 @@ public class CardUI : MonoBehaviour
 
     private List<RectTransform> cardList;
 
+    private int selectedCardAmount;
+    private int maxSelectedCards = 5;
+
     private void Start()
     {
         cardList = new List<RectTransform>();
@@ -20,6 +23,20 @@ public class CardUI : MonoBehaviour
 
                 cardTransform.GetComponent<CardValue>().SetValue(CardManager.Instance.GetAvailableCards()[i]);
                 cardList.Add(cardTransform);
+            }
+
+            foreach (RectTransform cardTransform in cardList)
+            {
+                CardSelect card = cardTransform.GetComponent<CardSelect>();
+
+                card.SetOnClickInitialAction(() =>
+                {
+                    if (selectedCardAmount == maxSelectedCards && !card.IsSelected()) return false;
+
+                    selectedCardAmount += card.IsSelected() ? -1 : 1; // Invert because selected -> unselected and vice versa
+
+                    return true;
+                });
             }
         }, 3f);
     }

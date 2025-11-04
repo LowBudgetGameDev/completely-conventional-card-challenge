@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 4175816212064343101}
   - component: {fileID: 7818750324077381318}
   - component: {fileID: 4283693923550275058}
+  - component: {fileID: -7298862921530722959}
   m_Layer: 5
-  m_Name: Card
+  m_Name: SelectableCard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -119,6 +120,18 @@ MonoBehaviour:
   - {fileID: 771643918, guid: a518054adce95e34aadb7c203768e46c, type: 3}
   - {fileID: -2089343815, guid: a518054adce95e34aadb7c203768e46c, type: 3}
   frontImage: {fileID: 7304467784646017534}
+--- !u!114 &-7298862921530722959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2018717760642565573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3e6f785e3c77e245a3e5512a4d4632f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2602739768361315013
 GameObject:
   m_ObjectHideFlags: 0
