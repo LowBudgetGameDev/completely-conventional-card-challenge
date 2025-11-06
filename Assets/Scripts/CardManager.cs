@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class CardManager : MonoBehaviour
@@ -28,5 +29,20 @@ public class CardManager : MonoBehaviour
     public List<Card> GetAvailableCards()
     {
         return availableCards;
+    }
+
+    private void RemoveAvailableCards(List<int> cardIndeces)
+    {
+        foreach (int i in cardIndeces.OrderByDescending(x => x))
+        {
+            availableCards.RemoveAt(i);
+        }
+    }
+
+    public void ReplaceAvailableCards(List<int> cardIndeces)
+    {
+        RemoveAvailableCards(cardIndeces);
+
+        availableCards.AddRange(deck.TakeTopCards(maxAvailableCards - availableCards.Count));
     }
 }

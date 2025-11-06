@@ -48,12 +48,14 @@ public class Deck
     {
         List<Card> cards = new List<Card>();
 
-        for (int i = 0; i < amount; i++)
+        int newAmount = amount > cardList.Count ? cardList.Count : amount;
+
+        for (int i = 0; i < newAmount; i++)
         {
             cards.Add(cardList[i]);
         }
 
-        cardList.RemoveRange(0, amount);
+        cardList.RemoveRange(0, newAmount);
 
         return cards;
     }
