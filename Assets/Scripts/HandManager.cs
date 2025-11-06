@@ -1,9 +1,12 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class HandManager : MonoBehaviour
 {
     public static HandManager Instance { get; private set; }
+
+    public event EventHandler onHandCreated;
 
     private List<Hand> handList;
 
@@ -17,5 +20,12 @@ public class HandManager : MonoBehaviour
     public void CreateHand(List<Card> cards)
     {
         handList.Add(new Hand(cards));
+
+        onHandCreated?.Invoke(this, EventArgs.Empty);
+    }
+
+    public Hand GetLastHand()
+    {
+        return handList[handList.Count - 1];
     }
 }
