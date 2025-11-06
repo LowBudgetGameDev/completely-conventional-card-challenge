@@ -40,7 +40,7 @@ public class CardUI : MonoBehaviour
 
             FunctionTimer.Create(() =>
             {
-                CardManager.Instance.ReplaceAvailableCards(selectedCardIndeces);
+                CardManager.Instance.CreateHandFromCards(selectedCardIndeces);
 
                 ClearAvailableCards();
                 AddAvailableCards();

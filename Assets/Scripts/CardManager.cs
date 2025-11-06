@@ -31,17 +31,17 @@ public class CardManager : MonoBehaviour
         return availableCards;
     }
 
-    private void RemoveAvailableCards(List<int> cardIndeces)
+    public void CreateHandFromCards(List<int> cardIndeces)
     {
+        List<Card> handCards = new List<Card>();
+
         foreach (int i in cardIndeces.OrderByDescending(x => x))
         {
+            handCards.Add(availableCards[i]);
             availableCards.RemoveAt(i);
         }
-    }
 
-    public void ReplaceAvailableCards(List<int> cardIndeces)
-    {
-        RemoveAvailableCards(cardIndeces);
+        HandManager.Instance.CreateHand(handCards);
 
         availableCards.AddRange(deck.TakeTopCards(maxAvailableCards - availableCards.Count));
     }
