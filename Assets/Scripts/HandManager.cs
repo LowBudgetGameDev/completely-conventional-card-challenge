@@ -6,7 +6,7 @@ public class HandManager : MonoBehaviour
 {
     public static HandManager Instance { get; private set; }
 
-    public event EventHandler onHandCreated;
+    public event EventHandler OnHandCreated;
 
     private List<Hand> handList;
 
@@ -21,7 +21,7 @@ public class HandManager : MonoBehaviour
     {
         handList.Add(new Hand(cards));
 
-        onHandCreated?.Invoke(this, EventArgs.Empty);
+        OnHandCreated?.Invoke(this, EventArgs.Empty);
     }
 
     public Hand GetLastHand()

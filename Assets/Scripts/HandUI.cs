@@ -9,7 +9,7 @@ public class HandUI : MonoBehaviour
 
     private void Start()
     {
-        HandManager.Instance.onHandCreated += (object sender, EventArgs e) =>
+        HandManager.Instance.OnHandCreated += (object sender, EventArgs e) =>
         {
             RectTransform hand = Instantiate(handPrefab, container);
 

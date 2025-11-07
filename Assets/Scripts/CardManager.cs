@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -5,6 +6,8 @@ using UnityEngine;
 public class CardManager : MonoBehaviour
 {
     public static CardManager Instance { get; private set; }
+
+    public event EventHandler OnDeckEmpty;
 
     private int maxAvailableCards = 7;
 
@@ -44,5 +47,7 @@ public class CardManager : MonoBehaviour
         HandManager.Instance.CreateHand(handCards);
 
         availableCards.AddRange(deck.TakeTopCards(maxAvailableCards - availableCards.Count));
+
+        if (deck.GetCardList().Count == 0) OnDeckEmpty?.Invoke(this, EventArgs.Empty);
     }
 }
