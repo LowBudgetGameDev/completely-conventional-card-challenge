@@ -60,6 +60,7 @@ MonoBehaviour:
   - {fileID: 8480537154835677554}
   - {fileID: 1458208960641939429}
   - {fileID: 2193438777724239273}
+  scoreText: {fileID: 8279402042289320689}
 --- !u!1 &8140040774970702646
 GameObject:
   m_ObjectHideFlags: 0
