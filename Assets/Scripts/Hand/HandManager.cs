@@ -28,4 +28,16 @@ public class HandManager : MonoBehaviour
     {
         return handList[handList.Count - 1];
     }
+
+    public int GetTotalScore()
+    {
+        int totalScore = 0;
+
+        foreach (Hand hand in handList)
+        {
+            totalScore += hand.GetScore();
+        }
+
+        return totalScore;
+    }
 }

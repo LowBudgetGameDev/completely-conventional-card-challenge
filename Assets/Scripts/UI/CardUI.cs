@@ -1,5 +1,5 @@
+using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,7 +21,7 @@ public class CardUI : MonoBehaviour
         FunctionTimer.Create(() =>
         {
             AddAvailableCards();
-        }, 3f);
+        }, 1f);
 
         confirmHandButton.onClick.AddListener(() =>
         {
@@ -44,8 +44,13 @@ public class CardUI : MonoBehaviour
 
                 ClearAvailableCards();
                 AddAvailableCards();
-            }, 1f);
+            }, 0.5f);
         });
+
+        CardManager.Instance.OnAllCardsUsed += (object sender, EventArgs e) =>
+        {
+            gameObject.SetActive(false);
+        };
     }
 
     private void AddAvailableCards()
