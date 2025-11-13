@@ -15,6 +15,7 @@ public class CardManager : MonoBehaviour
     private Deck deck;
 
     private List<Card> availableCards;
+    private List<Card> oldAvailableCards; // Use to determine which cards stayed when getting new cards (mainly for animations)
 
     private bool isDeckEmpty;
     private bool isAvailableCardsEmpty;
@@ -40,6 +41,8 @@ public class CardManager : MonoBehaviour
 
     public void CreateHandFromCards(List<int> cardIndeces)
     {
+        oldAvailableCards = new List<Card>(availableCards);
+
         List<Card> handCards = new List<Card>();
 
         foreach (int i in cardIndeces.OrderByDescending(x => x))
@@ -63,5 +66,16 @@ public class CardManager : MonoBehaviour
             OnAllCardsUsed?.Invoke(this, EventArgs.Empty);
             isAvailableCardsEmpty = true;
         }
+    }
+
+    public bool WasCardAtThisIndexPreviouslyAvailable(int index, out int oldIndex)
+    {
+        bool inOldList = oldAvailableCards.Contains(availableCards[index]);
+
+        oldIndex = -1;
+
+        if (inOldList) oldIndex = oldAvailableCards.IndexOf(availableCards[index]);
+
+        return inOldList;
     }
 }

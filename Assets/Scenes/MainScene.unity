@@ -954,6 +954,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9becec5028478dc4e861a50d8dfa54c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deckPoint: {fileID: 1468442634}
   cardPoints:
   - {fileID: 1223983007}
   - {fileID: 1174903422}

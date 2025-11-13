@@ -12,7 +12,7 @@ public class CardSelect : MonoBehaviour, IPointerClickHandler
 
     private void Awake()
     {
-        initialY = transform.GetComponent<RectTransform>().localPosition.y;
+        initialY = transform.GetComponent<RectTransform>().position.y;
         height = transform.GetComponent<RectTransform>().rect.height;
     }
 
@@ -35,7 +35,7 @@ public class CardSelect : MonoBehaviour, IPointerClickHandler
     {
         float yPosition = isSelected ? initialY + height / 2 : initialY;
 
-        transform.GetComponent<RectTransform>().localPosition = new Vector3(0, yPosition, 0);
+        GetComponent<CardAnimation>().Animate(transform.position, new Vector3(transform.position.x, yPosition, transform.position.z), 0.25f);
     }
 
     public bool IsSelected()

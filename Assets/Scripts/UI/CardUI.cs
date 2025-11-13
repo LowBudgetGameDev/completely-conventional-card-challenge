@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class CardUI : MonoBehaviour
 {
+    [SerializeField] private RectTransform deckPoint;
     [SerializeField] private List<RectTransform> cardPoints;
     [SerializeField] private RectTransform cardPrefab;
     [SerializeField] private Button confirmHandButton;
@@ -21,6 +23,11 @@ public class CardUI : MonoBehaviour
         FunctionTimer.Create(() =>
         {
             AddAvailableCards();
+
+            foreach (RectTransform card in cardList)
+            {
+                card.GetComponent<CardAnimation>().Animate(deckPoint.position, cardPoints[cardList.IndexOf(card)].position, 1f);
+            }
         }, 1f);
 
         confirmHandButton.onClick.AddListener(() =>
@@ -44,6 +51,15 @@ public class CardUI : MonoBehaviour
 
                 ClearAvailableCards();
                 AddAvailableCards();
+
+                foreach (RectTransform card in cardList)
+                {
+                    Vector3 startPosition = deckPoint.position;
+
+                    if (CardManager.Instance.WasCardAtThisIndexPreviouslyAvailable(cardList.IndexOf(card), out int oldIndex)) startPosition = cardPoints[oldIndex].position;
+
+                    card.GetComponent<CardAnimation>().Animate(startPosition, cardPoints[cardList.IndexOf(card)].position, 1f);
+                }
             }, 0.5f);
         });
 
