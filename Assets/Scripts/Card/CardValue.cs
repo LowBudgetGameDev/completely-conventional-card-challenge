@@ -8,8 +8,12 @@ public class CardValue : MonoBehaviour
 
     [SerializeField] private Image frontImage;
 
+    private Card card;
+
     public void SetValue(Card card)
     {
+        this.card = card;
+
         int suitIndex = (int) card.suit;   // 0 = Hearts, 1 = Diamonds, etc.
 
         int rankValue = (int) card.rank;
@@ -29,5 +33,10 @@ public class CardValue : MonoBehaviour
         int spriteIndex = suitIndex * 13 + rankIndex;
 
         frontImage.sprite = cardSpriteList[spriteIndex];
+    }
+
+    public Card GetCard()
+    {
+        return card;
     }
 }

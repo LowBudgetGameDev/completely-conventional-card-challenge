@@ -10,6 +10,8 @@ public class HandManager : MonoBehaviour
 
     private List<Hand> handList;
 
+    private Dictionary<Card, Vector3> cardPositionDictionary;
+
     private void Awake()
     {
         Instance = this;
@@ -39,5 +41,16 @@ public class HandManager : MonoBehaviour
         }
 
         return totalScore;
+    }
+
+    // This is strictly for getting the positions needed to animate the cards into the hand
+    public void SetPositionsOfUsedCards(Dictionary<Card, Vector3> positions)
+    {
+        cardPositionDictionary = positions;
+    }
+
+    public Dictionary<Card, Vector3> GetPositionsOfUsedCards()
+    {
+        return cardPositionDictionary;
     }
 }

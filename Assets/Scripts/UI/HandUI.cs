@@ -1,5 +1,4 @@
 using System;
-using TMPro;
 using UnityEngine;
 
 public class HandUI : MonoBehaviour
@@ -13,7 +12,7 @@ public class HandUI : MonoBehaviour
         {
             RectTransform hand = Instantiate(handPrefab, container);
 
-            hand.GetComponent<HandValue>().SetValue(HandManager.Instance.GetLastHand());
+            hand.GetComponent<HandValue>().SetValue(HandManager.Instance.GetLastHand(), HandManager.Instance.GetPositionsOfUsedCards());
         };
     }
 }

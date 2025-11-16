@@ -7,6 +7,7 @@ public class CardSelect : MonoBehaviour, IPointerClickHandler
     private bool isSelected;
     private float initialY;
     private float height;
+    private bool canClick;
 
     private Func<bool> onClickInitialAction;
 
@@ -24,7 +25,7 @@ public class CardSelect : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         // Runs code to check if code should run and exits method when return false
-        if (onClickInitialAction() == false) return;
+        if (!canClick || onClickInitialAction() == false) return;
 
         isSelected = !isSelected;
 
@@ -41,5 +42,10 @@ public class CardSelect : MonoBehaviour, IPointerClickHandler
     public bool IsSelected()
     {
         return isSelected;
+    }
+
+    public void SetCanClick(bool canClick)
+    {
+        this.canClick = canClick;
     }
 }

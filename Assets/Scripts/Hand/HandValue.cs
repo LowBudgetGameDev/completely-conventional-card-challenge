@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HandValue : MonoBehaviour
 {
@@ -8,7 +9,7 @@ public class HandValue : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI scoreText;
 
-    public void SetValue(Hand hand)
+    public void SetValue(Hand hand, Dictionary<Card, Vector3> cardPositions)
     {
         for (int i = 0; i < cardList.Count; i++)
         {
@@ -19,6 +20,12 @@ public class HandValue : MonoBehaviour
             }
 
             cardList[i].GetComponent<CardValue>().SetValue(hand.cards[i]);
+
+            LayoutRebuilder.ForceRebuildLayoutImmediate(transform.parent.GetComponent<RectTransform>()); // Fix positions in the scroll layout group so positions are accuarte
+
+            Vector3 localStartPosition = transform.InverseTransformPoint(cardPositions[hand.cards[i]]);
+
+            cardList[i].GetComponent<CardAnimation>().Animate(localStartPosition, cardList[i].transform.localPosition, 1f, true);
         }
 
         scoreText.SetText(hand.GetScore().ToString());

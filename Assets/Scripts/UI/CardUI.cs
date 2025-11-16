@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -47,6 +46,15 @@ public class CardUI : MonoBehaviour
 
             FunctionTimer.Create(() =>
             {
+                Dictionary<Card, Vector3> cardPositionDictionary = new Dictionary<Card, Vector3>();
+
+                foreach (int index in selectedCardIndeces)
+                {
+                    cardPositionDictionary.Add(CardManager.Instance.GetAvailableCards()[index], cardList[index].position);
+                }
+
+                HandManager.Instance.SetPositionsOfUsedCards(cardPositionDictionary);
+
                 CardManager.Instance.CreateHandFromCards(selectedCardIndeces);
 
                 ClearAvailableCards();
@@ -60,7 +68,7 @@ public class CardUI : MonoBehaviour
 
                     card.GetComponent<CardAnimation>().Animate(startPosition, cardPoints[cardList.IndexOf(card)].position, 1f);
                 }
-            }, 0.5f);
+            }, 0.75f);
         });
 
         CardManager.Instance.OnAllCardsUsed += (object sender, EventArgs e) =>
