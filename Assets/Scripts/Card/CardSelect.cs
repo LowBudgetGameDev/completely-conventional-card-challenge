@@ -29,6 +29,7 @@ public class CardSelect : MonoBehaviour, IPointerClickHandler
 
         isSelected = !isSelected;
 
+        SoundManager.Instance.PlaySound(SoundManager.Sound.PickupCard);
         UpdatePosition();
     }
 

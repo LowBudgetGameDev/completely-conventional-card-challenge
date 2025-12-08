@@ -21,6 +21,7 @@ public class CardUI : MonoBehaviour
 
         FunctionTimer.Create(() =>
         {
+            SoundManager.Instance.PlaySound(SoundManager.Sound.CardFlip);
             AddAvailableCards();
 
             foreach (RectTransform card in cardList)
@@ -57,8 +58,14 @@ public class CardUI : MonoBehaviour
 
                 CardManager.Instance.CreateHandFromCards(selectedCardIndeces);
 
+                SoundManager.Instance.PlaySound(SoundManager.Sound.CardFlip);
                 ClearAvailableCards();
                 AddAvailableCards();
+
+                FunctionTimer.Create(() =>
+                {
+                    SoundManager.Instance.PlaySoundType(SoundManager.SoundType.ChipCollect);
+                }, 1f);
 
                 foreach (RectTransform card in cardList)
                 {
