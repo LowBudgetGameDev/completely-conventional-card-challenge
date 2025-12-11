@@ -10,8 +10,17 @@ public class CardAnimation : MonoBehaviour
     private Vector3 finalPosition;
     private bool isLocal;
 
-    public void Animate(Vector3 initialPosition, Vector3 finalPosition, float duration, bool isLocal = false)
+    private bool flipCard;
+    private float initialRotation;
+    private float finalRotation;
+
+    private float delayTimer;
+
+    // I know this isn't neat but its used like 4 times total and this just works
+    public void Animate(Vector3 initialPosition, Vector3 finalPosition, float duration, bool isLocal = false, bool flipCard = false, float delay = 0f)
     {
+        delayTimer = delay;
+
         this.isLocal = isLocal;
 
         if (isLocal)
@@ -23,6 +32,14 @@ public class CardAnimation : MonoBehaviour
             transform.position = initialPosition;
         }
 
+        this.flipCard = flipCard;
+
+        if (flipCard)
+        {
+            initialRotation = 0f;
+            finalRotation = 180f;
+        }
+
         timer = 0f;
         timerMax = duration;
         this.initialPosition = initialPosition;
@@ -32,6 +49,10 @@ public class CardAnimation : MonoBehaviour
 
     private void Update()
     {
+        delayTimer -= Time.deltaTime;
+
+        if (delayTimer > 0f) return;
+
         if (timer >= timerMax) return;
 
         timer += Time.deltaTime;
@@ -43,6 +64,11 @@ public class CardAnimation : MonoBehaviour
         else
         {
             transform.position = Vector3.Lerp(initialPosition, finalPosition, curve.Evaluate(timer / timerMax));
+        }
+
+        if (flipCard)
+        {
+            transform.eulerAngles = new Vector3(transform.eulerAngles.x, Mathf.Lerp(initialRotation, finalRotation, curve.Evaluate(timer / timerMax)), transform.eulerAngles.z);
         }
 
         if (timer >= timerMax)

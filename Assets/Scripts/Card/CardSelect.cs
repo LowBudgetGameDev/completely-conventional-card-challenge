@@ -37,7 +37,7 @@ public class CardSelect : MonoBehaviour, IPointerClickHandler
     {
         float yPosition = isSelected ? initialY + height / 2 : initialY;
 
-        GetComponent<CardAnimation>().Animate(transform.position, new Vector3(transform.position.x, yPosition, transform.position.z), 0.25f);
+        GetComponent<CardAnimation>().Animate(transform.position, new Vector3(transform.position.x, yPosition, transform.position.z), TimeDelays.CardSelectTime);
     }
 
     public bool IsSelected()

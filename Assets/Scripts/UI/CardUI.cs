@@ -23,12 +23,15 @@ public class CardUI : MonoBehaviour
         {
             SoundManager.Instance.PlaySound(SoundManager.Sound.CardFlip);
             AddAvailableCards();
-
+            
+            int cardIndex = 0;
             foreach (RectTransform card in cardList)
             {
-                card.GetComponent<CardAnimation>().Animate(deckPoint.position, cardPoints[cardList.IndexOf(card)].position, 1f);
+                card.GetComponent<CardAnimation>().Animate(deckPoint.position, cardPoints[cardList.IndexOf(card)].position, TimeDelays.GiveCardTime, false, true, TimeDelays.DelayBetweenGivingCards * cardIndex);
+
+                cardIndex++;
             }
-        }, 1f);
+        }, TimeDelays.GiveInitialCardsDelay);
 
         confirmHandButton.onClick.AddListener(() =>
         {
@@ -45,37 +48,38 @@ public class CardUI : MonoBehaviour
                 if (isSelected) selectedCardIndeces.Add(i);
             }
 
+            Dictionary<Card, Vector3> cardPositionDictionary = new Dictionary<Card, Vector3>();
+
+            foreach (int index in selectedCardIndeces)
+            {
+                cardPositionDictionary.Add(CardManager.Instance.GetAvailableCards()[index], cardList[index].position);
+            }
+
+            HandManager.Instance.SetPositionsOfUsedCards(cardPositionDictionary);
+
+            CardManager.Instance.CreateHandFromCards(selectedCardIndeces);
+
+            SoundManager.Instance.PlaySound(SoundManager.Sound.CardFlip);
+            ClearAvailableCards();
+            AddAvailableCards();
+
             FunctionTimer.Create(() =>
             {
-                Dictionary<Card, Vector3> cardPositionDictionary = new Dictionary<Card, Vector3>();
+                SoundManager.Instance.PlaySoundType(SoundManager.SoundType.ChipCollect);
+            }, TimeDelays.MoveCardsToHandTime);
 
-                foreach (int index in selectedCardIndeces)
-                {
-                    cardPositionDictionary.Add(CardManager.Instance.GetAvailableCards()[index], cardList[index].position);
-                }
+            int cardIndex = 0;
+            foreach (RectTransform card in cardList)
+            {
+                Vector3 startPosition = deckPoint.position;
 
-                HandManager.Instance.SetPositionsOfUsedCards(cardPositionDictionary);
+                bool staysInHand = false;
+                if (staysInHand = CardManager.Instance.WasCardAtThisIndexPreviouslyAvailable(cardList.IndexOf(card), out int oldIndex)) startPosition = cardPoints[oldIndex].position;
 
-                CardManager.Instance.CreateHandFromCards(selectedCardIndeces);
+                card.GetComponent<CardAnimation>().Animate(startPosition, cardPoints[cardList.IndexOf(card)].position, TimeDelays.GiveCardTime, false, !staysInHand, TimeDelays.DelayBetweenGivingCards * cardIndex);
 
-                SoundManager.Instance.PlaySound(SoundManager.Sound.CardFlip);
-                ClearAvailableCards();
-                AddAvailableCards();
-
-                FunctionTimer.Create(() =>
-                {
-                    SoundManager.Instance.PlaySoundType(SoundManager.SoundType.ChipCollect);
-                }, 1f);
-
-                foreach (RectTransform card in cardList)
-                {
-                    Vector3 startPosition = deckPoint.position;
-
-                    if (CardManager.Instance.WasCardAtThisIndexPreviouslyAvailable(cardList.IndexOf(card), out int oldIndex)) startPosition = cardPoints[oldIndex].position;
-
-                    card.GetComponent<CardAnimation>().Animate(startPosition, cardPoints[cardList.IndexOf(card)].position, 1f);
-                }
-            }, 0.75f);
+                cardIndex++;
+            }
         });
 
         CardManager.Instance.OnAllCardsUsed += (object sender, EventArgs e) =>

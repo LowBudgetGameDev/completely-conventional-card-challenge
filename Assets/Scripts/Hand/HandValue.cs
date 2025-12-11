@@ -25,7 +25,13 @@ public class HandValue : MonoBehaviour
 
             Vector3 localStartPosition = transform.InverseTransformPoint(cardPositions[hand.cards[i]]);
 
-            cardList[i].GetComponent<CardAnimation>().Animate(localStartPosition, cardList[i].transform.localPosition, 1f, true);
+            cardList[i].GetComponent<CardAnimation>().Animate(localStartPosition, cardList[i].transform.localPosition, TimeDelays.MoveCardsToHandTime, true);
+
+            scoreText.gameObject.SetActive(false);
+            FunctionTimer.Create(() =>
+            {
+                scoreText.gameObject.SetActive(true);
+            }, TimeDelays.MoveCardsToHandTime);
         }
 
         scoreText.SetText(hand.GetScore().ToString());
