@@ -14,6 +14,7 @@ public class MainMenuUI : MonoBehaviour
         playButton.onClick.AddListener(() =>
         {
             GameSceneManager.LoadScene(GameSceneManager.Scene.MainScene);
+            SoundManager.Instance.PlaySoundType(SoundManager.SoundType.ChipCollect);
         });
 
         volumeSlider.OnValueChanged += (object sender, EventArgs e) =>
