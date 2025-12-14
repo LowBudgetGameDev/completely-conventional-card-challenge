@@ -45,6 +45,8 @@ public class CardAnimation : MonoBehaviour
         this.initialPosition = initialPosition;
         this.finalPosition = finalPosition;
         GetComponent<CardSelect>()?.SetCanClick(false);
+
+        if (flipCard) transform.eulerAngles = new Vector3(transform.eulerAngles.x, 0f, transform.eulerAngles.z);
     }
 
     private void Update()
