@@ -233,7 +233,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Total Score: 999999'
+  m_text: 'Total: <sprite=0>  999999'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7c58b09f626ab88499d586d2dd4b4319, type: 2}
   m_sharedMaterial: {fileID: 5261136998102644359, guid: 7c58b09f626ab88499d586d2dd4b4319, type: 2}
@@ -252,7 +252,7 @@ MonoBehaviour:
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
+  m_spriteAsset: {fileID: 11400000, guid: fb8aa6ea51f52d147ba1df3537f023de, type: 2}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
   m_TextStyleHashCode: -1183493901

@@ -34,6 +34,6 @@ public class HandValue : MonoBehaviour
             }, TimeDelays.MoveCardsToHandTime);
         }
 
-        scoreText.SetText(hand.GetScore().ToString());
+        scoreText.SetText("<sprite=0> " + hand.GetScore().ToString());
     }
 }

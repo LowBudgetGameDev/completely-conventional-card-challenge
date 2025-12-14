@@ -15,7 +15,7 @@ public class GameOverUI : MonoBehaviour
         {
             Show();
 
-            scoreText.SetText("Total Score: " + HandManager.Instance.GetTotalScore());
+            scoreText.SetText("Total: <sprite=0> " + HandManager.Instance.GetTotalScore());
         };
 
         retryButton.onClick.AddListener(() =>
