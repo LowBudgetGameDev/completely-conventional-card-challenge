@@ -19,9 +19,10 @@ public class CardUI : MonoBehaviour
     {
         cardList = new List<RectTransform>();
 
+        SoundManager.Instance.PlaySound(SoundManager.Sound.CardShuffle);
+
         FunctionTimer.Create(() =>
         {
-            SoundManager.Instance.PlaySound(SoundManager.Sound.CardFlip);
             AddAvailableCards();
             
             int cardIndex = 0;

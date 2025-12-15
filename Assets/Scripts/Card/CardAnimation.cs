@@ -15,6 +15,7 @@ public class CardAnimation : MonoBehaviour
     private float finalRotation;
 
     private float delayTimer;
+    private bool playedSound;
 
     // I know this isn't neat but its used like 4 times total and this just works
     public void Animate(Vector3 initialPosition, Vector3 finalPosition, float duration, bool isLocal = false, bool flipCard = false, float delay = 0f)
@@ -54,6 +55,12 @@ public class CardAnimation : MonoBehaviour
         delayTimer -= Time.deltaTime;
 
         if (delayTimer > 0f) return;
+
+        if (!playedSound && flipCard)
+        {
+            SoundManager.Instance.PlaySound(SoundManager.Sound.CardFlip);
+            playedSound = true;
+        }
 
         if (timer >= timerMax) return;
 
