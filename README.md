@@ -5,3 +5,5 @@ This game is the third of a collection where each game is focussed on a letter o
 This game is for the letter "C" and I made the game about ***C**ards*.
 
 **Built With:** Unity + C#
+
+**Asset Attributions on [itch.io](https://lowbudgetgamedev.itch.io/completely-conventional-card-challenge)**
